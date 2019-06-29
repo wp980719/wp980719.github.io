@@ -109,7 +109,7 @@ function createPipes(){
 	//随机上管道的高度
 	var top_height = random(80,200);
 	//获取下管道的高度  假设通道口的高度为150
-	var bottom_height = li.offsetHeight - 180 - top_height;
+	var bottom_height = li.offsetHeight - 150 - top_height;
 	//创建上管道
 	var topDiv = document.createElement("div");
 	topDiv.className = "up_pipe";

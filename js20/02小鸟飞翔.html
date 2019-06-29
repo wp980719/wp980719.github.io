@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style type="text/css">
+			*{
+				margin: 0;
+				padding: 0;
+			}
+			#wrap{
+				width: 343px;
+				height: 480px;
+				background: url(img/bg.jpg) 0 0 no-repeat;
+				margin: 30px auto;
+				position: relative;
+				overflow: hidden;
+			}
+			#grass{
+				/* border: 1px solid red; */
+				position: absolute;
+				left: 0;
+				bottom: 43px;
+				width: 800px;
+			}
+			#grass img{
+				width: 343px;
+				float: left;
+			}
+			#bird{
+				position: absolute;
+				left: 50px;
+				top: 200px;
+				/* border: 1px solid red; */
+			}
+			#bird img{
+				/* 去除图片的上下间隙 */
+				vertical-align: bottom;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="wrap">
+			
+			<!-- 飞翔的小鸟 -->
+			<div id="bird">
+				<img src="img/bird1.png" >
+			</div>
+			<!-- 草坪 -->
+			<div id="grass">
+				<img src="img/banner.jpg" >
+			</div>
+		</div>
+		
+	</body>
+	<script type="text/javascript">
+		var wrap = document.getElementById("wrap");
+		var grass = document.getElementById("grass");
+		grass.innerHTML += grass.innerHTML;
+		var index = 0;//记录grass的left值
+		setInterval(function(){
+			index += 2;
+			if (index > 343) {//第一张图片移出屏幕
+			index = 0;//切换到第一张
+			}
+			grass.style.left = -index + "px";
+		},30);
+		
+		var bird = document.getElementById("bird");
+		//小鸟图片
+		bird.birdImg = bird.querySelector("img");
+		bird.speed = 0;//记录速度
+		var pres = 0;//记录上一次的位置
+	    bird.timer = setInterval(function (){
+			//增加速度
+			bird.speed += 0.5;
+			//为了速度的合理性
+			if(bird.speed >= 10){
+				bird.speed = 10;
+			}
+			//设置小鸟距离顶部的位置
+			var birdTop = bird.offsetTop + bird.speed;
+			//判断这次小鸟飞翔的状态 (下落还是上升)
+			if (pres < birdTop) {
+				//下落
+				bird.birdImg.src = "img/down_bird1.png";
+			} else{
+				//上升
+				bird.birdImg.src = "img/up_bird1.png";
+			}
+			//设置小鸟距离顶部和底部草坪的合理值
+			if (birdTop <= 0) {//碰到顶部
+				bird.birdImg.src = "img/bird1.png";
+				clearInterval(bird.timer);
+				alert("碰到顶部，小鸟死亡");
+			}
+			if (birdTop >= 393) {
+					bird.birdImg.src = "img/bird1.png";
+				clearInterval(bird.timer);
+				alert("碰到草坪，小鸟死亡");
+			}
+			//设置小鸟的位置  top值
+			bird.style.top = birdTop + "px";
+			
+			//记录上一次的top值
+			pres = birdTop;
+		},30);
+		
+		//点击wrap,让小鸟飞翔
+		wrap.onclick = function (){
+			bird.speed = -10;
+		}
+	</script>
+</html>

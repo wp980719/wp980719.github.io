@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style type="text/css">
+			*{
+				margin: 0;
+				padding: 0;
+			}
+			#wrap{
+				width: 343px;
+				height: 480px;
+				background: url(img/bg.jpg) 0 0 no-repeat;
+				margin: 30px auto;
+				position: relative;
+				overflow: hidden;
+			}
+			#grass{
+				/* border: 1px solid red; */
+				position: absolute;
+				left: 0;
+				bottom: 43px;
+				width: 800px;
+			}
+			#grass img{
+				width: 343px;
+				float: left;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="wrap">
+			<!-- 草坪 -->
+			<div id="grass">
+				<img src="img/banner.jpg" >
+			</div>
+		</div>
+		
+	</body>
+	<script type="text/javascript">
+		var wrap = document.getElementById("wrap");
+		var grass = document.getElementById("grass");
+		grass.innerHTML += grass.innerHTML;
+		var index = 0;//记录grass的left值
+		setInterval(function(){
+			index += 2;
+			if (index > 343) {//第一张图片移出屏幕
+			index = 0;//切换到第一张
+			}
+			grass.style.left = -index + "px";
+		},30);
+	</script>
+</html>
